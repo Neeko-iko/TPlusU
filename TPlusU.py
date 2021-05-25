@@ -39,7 +39,11 @@ except FileNotFoundError:
 url = urllib.request.Request("https://gitlab.com/UniQMG/tetrio-plus/-/releases.json")
 
 ## Version checking
-ver = json.loads(urllib.request.urlopen(url).read())[0]["tag"]
+try:
+    ver = json.loads(urllib.request.urlopen(url).read())[0]["tag"]
+except URLError:
+    input("Either Gitlab is down, You're down, or something else is up.  If neither gitlab or your internet is offline.... \n\ncontact Neeko#7373 on discord.com I guess.\npress enter to close the CMD")
+    exit()
 try:
     # tags match
     if ver == data["ver"]:
